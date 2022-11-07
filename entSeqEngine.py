@@ -425,3 +425,5 @@ if __name__=="__main__":
             h = h + t
         print(e, len(s), h)
         hex2binfile(h, sys.argv[3])
+    else:
+        print('Data generation failed, supported MAX entropy parameter is 7.96')
