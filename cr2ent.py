@@ -3,7 +3,7 @@ import zstd
 import entSeqEngine
 import json, os
 
-cr = round(float(sys.argv[1]), 1)
+#cr = round(float(sys.argv[1]), 1)
 ent_list = [x*0.1 for x in range(1, 80)]
 json_file = "cr2ent.json"
 
@@ -37,10 +37,14 @@ else:
 
 #print(cr)
 #print(cr_ent_dict)
-while str(round(cr,1)) not in cr_ent_dict and cr <= 40:
-    cr += 0.1
 
-try:
-    print(cr_ent_dict[str(round(cr,1))])
-except:
-    print("Compression ratio {} is too high to be achieved!".format(round(cr,1)))
+def cr2ent_fun(c):
+    cr = c
+    while str(round(cr,1)) not in cr_ent_dict and cr <= 40:
+        cr += 0.1
+
+    try:
+        return cr_ent_dict[str(round(cr,1))]
+    except:
+        print("Compression ratio {} is too high to be achieved!".format(round(cr,1)))
+        return None
