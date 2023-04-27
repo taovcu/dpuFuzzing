@@ -311,8 +311,8 @@ def gen_ent_seq(n, e):
     if e < ent_range[0] or e > ent_range[1]:
         raise ValueError("e must be in the range of {}".format(ent_range))
 
-    #max_try = 1000
-    max_try = 200
+    max_try = 2000
+    #max_try = 200
 
     while abs(err) > err_bound and max_try > 0 and n0 <= n and n1 <= n:
         max_try -= 1
