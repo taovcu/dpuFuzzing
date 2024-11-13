@@ -313,12 +313,12 @@ def gen_ent_seq(n, e):
 
     max_try = 2000
     #max_try = 200
-
+    adjustment_factor = 1.0
     while abs(err) > err_bound and max_try > 0 and n0 <= n and n1 <= n:
         max_try -= 1
         #print(n0, n1, err)
         #print(zero_too_few, zero_too_many)
-
+        adjustment_factor = max(0.5, min(1, 1 - abs(err)))
         if err > 0:
             # reduce random sequence and add 0s
             while n1 in zero_too_few:
@@ -338,7 +338,7 @@ def gen_ent_seq(n, e):
             # this try also has too few zeros
             # reduce random by half
             else:
-                n0 = n0 // 2
+                n0 = max(1, int(n0 * adjustment_factor))
                 n1 = n - n0
 
             s0 = s0[:n0]
@@ -379,6 +379,7 @@ def gen_ent_seq(n, e):
         err = m_entropy_cal(s) - e
 
     if not (max_try > 0 and n0 <= n and n1 <= n):
+        print("Entropy does not converge")
         return None, None
 
     # chunk s with 6 bytes each group
